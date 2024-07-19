@@ -7,24 +7,26 @@ import 'package:json_placeholder_app_flutter/utils/consts.dart';
 
 class JsonPlaceholderRepoImpl extends JsonPlaceHolder{
   @override
-  Future<Either<UserModel, String>> getUsers() async {
+  Future<Either<List<UserModel>, String>> getUsers() async {
     var dio = Dio();
     var url = Consts.baseUrl + Consts.users;
     var apiClient = ApiClient(dio: dio);
     var response = await apiClient.get(url);
     return response.result.fold((l) {
-      var model = UserModel.fromJson(l);
-      return Left(UserModel(
-        address: model.address,
-        company: model.company,
-        email: model.email,
-        id: model.id,
-         name: model.name,
-         phone: model.phone,
-         username: model.username,
-         website: model.website,
+            var userList = (l as List).map((json) => UserModel.fromJson(json)).toList();
+return Left(userList);
+      // var model = UserModel.fromJson(l);
+      // return Left(UserModel(
+      //   address: model.address,
+      //   company: model.company,
+      //   email: model.email,
+      //   id: model.id,
+      //    name: model.name,
+      //    phone: model.phone,
+      //    username: model.username,
+      //    website: model.website,
 
-      ));
+      // ));
     }, (r) => Right(r));
  
   }
