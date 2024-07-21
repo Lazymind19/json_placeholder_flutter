@@ -33,6 +33,12 @@ part of 'json_place_holder_bloc.dart';
   JsonPlaceHolderFetchPhotoSuccessState({required this.photoModels});
  }
 
+ class JsonPlaceHolderFetchAlbumSuccessState extends JsonPlaceHolderState{
+  final List<AlbumModel> albumModel;
+
+  JsonPlaceHolderFetchAlbumSuccessState({required this.albumModel});
+ }
+
 
 
  class JsonPlaceHolderFailureState extends JsonPlaceHolderState{
