@@ -30,11 +30,7 @@ class _UserPageState extends State<UserPage> {
       bloc: jsonPlaceHolderBloc,
       builder: (context, state) {
         if(state is JsonPlaceHolderLoadingState){
-          return Container(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return const CustomloadingScreen();
         }
         else if(state is JsonPlaceHolderFetchUserSuccessState){
           log("Fetched user success : lenght is : ${state.userModels?.length}");
@@ -59,13 +55,28 @@ class _UserPageState extends State<UserPage> {
       ),
       body: ListView.builder(
         itemBuilder: (context, index) => GestureDetector(
-          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserDetailPage(userModel: userModels[index]),)),
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserDetailPage(userModel: userModels[index], bloc: jsonPlaceHolderBloc),)),
           child: UserTileWidget(
             user : userModels[index]
           ),
         ),
        itemCount: userModels.length,
         shrinkWrap: true,
+      ),
+    );
+  }
+}
+
+class CustomloadingScreen extends StatelessWidget {
+  const CustomloadingScreen({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }

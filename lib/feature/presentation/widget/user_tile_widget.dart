@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_placeholder_app_flutter/feature/data/user_model.dart';
+import 'package:json_placeholder_app_flutter/utils/app_style.dart';
 
 import 'icon_text_widget.dart';
 
@@ -9,20 +10,11 @@ class UserTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
         padding: const EdgeInsets.all(8.0),
         margin: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.black12),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 1),
-                  spreadRadius: 1,
-                  blurRadius: 2,
-                  color: Colors.black.withOpacity(0.25))
-            ]),
+        decoration: AppStyle.boxDecoration,
         child: Column(
           children: [
             Text(

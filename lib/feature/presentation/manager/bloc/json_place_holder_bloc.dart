@@ -15,6 +15,7 @@ part 'json_place_holder_state.dart';
 class JsonPlaceHolderBloc extends Bloc<JsonPlaceHolderEvent, JsonPlaceHolderState> {
   JsonPlaceHolderBloc() : super(JsonPlaceHolderInitial()) {
     on<JsonPlaceHolderFetchUserEvent>(jsonPlaceHolderFetchUserEvent);
+    on<JsonPlaceHolderFetchPostEvent>(jsonPlaceHolderFetchPostEvent);
 
   }
 
@@ -28,5 +29,17 @@ class JsonPlaceHolderBloc extends Bloc<JsonPlaceHolderEvent, JsonPlaceHolderStat
   }catch(e){
     emit(JsonPlaceHolderFailureState(errorMessge: e.toString()));
   }
+  }
+
+  Future<FutureOr<void>> jsonPlaceHolderFetchPostEvent(JsonPlaceHolderFetchPostEvent event, Emitter<JsonPlaceHolderState> emit) async {
+    try{
+      emit(JsonPlaceHolderLoadingState());
+      var repo = JsonPlaceholderRepoImpl();
+      var response = await repo.getPosts(userId: event.userId!);
+      response.fold((l) => emit(JsonPlaceHolderFetchPostSuccessState(postModels: l)), 
+      (r) => emit(JsonPlaceHolderFailureState(errorMessge: r)));
+    } catch(e){
+      emit(JsonPlaceHolderFailureState(errorMessge: e.toString()));
+    }
   }
 }
