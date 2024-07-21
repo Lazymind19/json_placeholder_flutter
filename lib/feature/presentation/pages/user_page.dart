@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:json_placeholder_app_flutter/feature/data/user_model.dart';
 import 'package:json_placeholder_app_flutter/feature/presentation/manager/bloc/json_place_holder_bloc.dart';
+import 'package:json_placeholder_app_flutter/feature/presentation/pages/user_detail_page.dart';
 import 'package:json_placeholder_app_flutter/feature/presentation/widget/user_tile_widget.dart';
 
 class UserPage extends StatefulWidget {
@@ -57,8 +58,11 @@ class _UserPageState extends State<UserPage> {
         title: Text("Users"),
       ),
       body: ListView.builder(
-        itemBuilder: (context, index) => UserTileWidget(
-          user : userModels[index]
+        itemBuilder: (context, index) => GestureDetector(
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => UserDetailPage(userModel: userModels[index]),)),
+          child: UserTileWidget(
+            user : userModels[index]
+          ),
         ),
        itemCount: userModels.length,
         shrinkWrap: true,
