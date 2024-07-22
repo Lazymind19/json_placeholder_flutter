@@ -50,15 +50,17 @@ class _AlbumPageState extends State<AlbumPage> {
   albumBody() {
     return ListView.builder(
       itemBuilder: (context, index) => Container(
-        padding: EdgeInsets.all(12),
-        margin: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.all(12),
         decoration:AppStyle.boxDecoration ,
         child: IntrinsicHeight(
           child: Row(
             children: [
-              Text("${albumList?[index].id}", style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),)
-    , SizedBox(width: 10,) ,  Container(width: 2, color: Colors.grey,),
-   SizedBox(width: 10,),   Expanded(child: Text("${albumList?[index].title}"))
+              Text("${albumList?[index].id}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),)
+    , const SizedBox(width: 10,) ,  Container(width: 2, color: Colors.grey,),
+   const SizedBox(width: 10,),   Expanded(child: Text("${albumList?[index].title}", style: const TextStyle(
+    fontWeight: FontWeight.bold
+   ),))
             ],
           ),
         ),

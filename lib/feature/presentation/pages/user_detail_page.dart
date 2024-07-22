@@ -3,6 +3,7 @@ import 'package:json_placeholder_app_flutter/feature/data/user_model.dart';
 import 'package:json_placeholder_app_flutter/feature/presentation/manager/bloc/json_place_holder_bloc.dart';
 import 'package:json_placeholder_app_flutter/feature/presentation/pages/album_page.dart';
 import 'package:json_placeholder_app_flutter/feature/presentation/pages/poset_page.dart';
+import 'package:json_placeholder_app_flutter/feature/presentation/pages/todo_page.dart';
 
 class UserDetailPage extends StatefulWidget {
   final UserModel? userModel;
@@ -32,7 +33,10 @@ class _UserDetailPageState extends State<UserDetailPage> {
           ]),
           Expanded(child: TabBarView(children: [
             PostPage(bloc: widget.bloc!, userId: widget.userModel?.id),
-                        Container(),
+                        TodoPage(
+                          bloc: widget.bloc,
+                          userId: widget.userModel?.id,
+                        ),
 
             AlbumPage(
               bloc: widget.bloc!,
