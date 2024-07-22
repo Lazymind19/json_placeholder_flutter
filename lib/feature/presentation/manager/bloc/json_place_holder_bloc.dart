@@ -19,6 +19,7 @@ class JsonPlaceHolderBloc extends Bloc<JsonPlaceHolderEvent, JsonPlaceHolderStat
     on<JsonPlaceHolderFetchPostEvent>(jsonPlaceHolderFetchPostEvent);
     on<JsonPlaceHolderFetchAlbumEvent>(jsonPlaceHolderFetchAlbumEvent);
     on<JsonPlaceHolderFetchTodoEvent>(jsonPlaceHolderFetchTodoEvent);
+    on<JsonPlaceHolderFetchPhotoEvent>(jsonPlaceHolderFetchPhotoEvent);
 
   }
 
@@ -69,5 +70,16 @@ class JsonPlaceHolderBloc extends Bloc<JsonPlaceHolderEvent, JsonPlaceHolderStat
   emit(JsonPlaceHolderFailureState(errorMessge: e.toString()));
  }
  
+  }
+
+  Future<FutureOr<void>> jsonPlaceHolderFetchPhotoEvent(JsonPlaceHolderFetchPhotoEvent event, Emitter<JsonPlaceHolderState> emit) async {
+  try{
+    emit(JsonPlaceHolderLoadingState());
+    var repo = JsonPlaceholderRepoImpl();
+    var response = await repo.getPhoto(albumId: event.albumId!);
+    response.fold((l) => emit(JsonPlaceHolderFetchPhotoSuccessState(photoModels: l)), (r) => emit(JsonPlaceHolderFailureState(errorMessge: r)));
+  } catch(e){
+    emit(JsonPlaceHolderFailureState(errorMessge: e.toString()));
+  }
   }
 }
